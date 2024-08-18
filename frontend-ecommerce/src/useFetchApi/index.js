@@ -1,4 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+
+export const URLAPIECOMMERCE = "http://localhost:3000/api/";
 
 export const useFetchApi = (url, params = {}) => {
   const [data, setData] = useState(null);

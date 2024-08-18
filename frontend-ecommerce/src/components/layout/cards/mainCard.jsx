@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import styled from "styled-components";
+import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
 
 const CardContainer = styled.div`
-  width: 300px;
-  border-radius: 8px;
+  width: 340px;
   overflow: hidden;
 `;
 
@@ -10,10 +11,15 @@ const CardContent = styled.div`
   font-family: "Saira", sans-serif;
   background-color: #ffff;
   padding: 12px;
+  border-radius: 0px 0px 8px 8px;
+
   h6 {
     font-size: 24px;
     font-weight: 300;
     color: #41414d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   hr {
@@ -35,21 +41,50 @@ const CardImg = styled.img`
   height: 300px;
   object-fit: cover;
   display: block;
+  border-radius: 8px 8px 0 0;
+`;
+
+const DivDflex = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px;
 `;
 
 export const Card = () => {
-  const imgUrl =
-    "https://images.tcdn.com.br/img/img_prod/460977/caneca_sao_paulo_fotebol_clube_tricolor_logo_ev_87707_1_1c91a5552fb2eec5106b763949520dda.jpeg";
+  function formatNumberWithTwoDecimals(num) {
+    let numStr = num.toString();
+    if (numStr.includes(".")) {
+      let [integerPart, decimalPart] = numStr.split(".");
+      if (decimalPart.length < 2) {
+        decimalPart = decimalPart.padEnd(2, "0");
+      }
+      return `${integerPart}.${decimalPart}`;
+    } else {
+      return `${numStr}.00`;
+    }
+  }
+
+  const {
+    data: allProducts,
+    isLoading,
+    error,
+  } = useFetchApi(`${URLAPIECOMMERCE}/produtos`);
+
   return (
     <>
-      <CardContainer>
-        <CardImg src={imgUrl} alt="My Image" />
-        <CardContent>
-          <h6>Caneca São Paulo FC</h6>
-          <div></div>
-          <strong>R$ 40,00</strong>
-        </CardContent>
-      </CardContainer>
+      <DivDflex>
+        {allProducts?.map((item) => (
+          <CardContainer>
+            <CardImg src={item?.url_img} alt="My Image" />
+            <CardContent>
+              <h6>{item?.nome}</h6>
+              <div></div>
+              <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+            </CardContent>
+          </CardContainer>
+        ))}
+      </DivDflex>
     </>
   );
 };
