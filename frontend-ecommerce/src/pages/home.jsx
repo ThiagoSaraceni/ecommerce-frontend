@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Tabs } from "../components/layout/tab";
-import { FilterBy } from "../components/layout/filter";
+import { Tabs } from "../components/layout/tab/index.jsx";
+import { FilterBy } from "../components/layout/filter/index.jsx";
 import { Card } from "../components/layout/cards/mainCard.jsx";
 
 const BgColor = styled.div`
