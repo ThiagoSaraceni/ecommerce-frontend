@@ -5,7 +5,7 @@ import { Card } from "../components/layout/cards/mainCard.jsx";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
-  height: 100vh;
+  height: 100%;
   padding: 20px 160px 20px 160px;
 `;
 
