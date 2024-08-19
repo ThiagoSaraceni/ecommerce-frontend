@@ -1,4 +1,4 @@
-import { ShoppingBagIcon } from "./layout/ShopBagIcon";
+import { ShoppingBagIcon } from "./ShopBagIcon";
 import styled from "styled-components";
 
 const ContainerShoppingBag = styled.div`

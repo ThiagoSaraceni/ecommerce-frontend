@@ -1,5 +1,5 @@
-import { InputSeach } from "../../inputSearch";
-import { ShoppingBag } from "../../shoppingBag";
+import { InputSeach } from "../../InputSearch/inputSearch";
+import { ShoppingBag } from "../../ShoppingBag/shoppingBag";
 import * as S from "./styles";
 
 export const Navbar = () => {
