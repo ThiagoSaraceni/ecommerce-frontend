@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
+import { useSelector } from "react-redux";
 
 const CardContainer = styled.div`
   width: 340px;
@@ -65,26 +66,46 @@ export const Card = () => {
     }
   }
 
-  const {
+  const { params } = useSelector((state) => state.ecommerce);
+
+  const num = params?.option;
+
+  const urlMap = {
+    1: `${URLAPIECOMMERCE}/produtos`,
+    2: `${URLAPIECOMMERCE}/produtos/canecas`,
+    3: `${URLAPIECOMMERCE}/produtos/camisetas`,
+  };
+
+  console.log(num);
+
+  const url = urlMap[num];
+  console.log(urlMap[num]);
+
+  if (url) {
+    const { data, isLoading, error } = useFetchApi(url);
+
+    /*const {
     data: allProducts,
     isLoading,
     error,
   } = useFetchApi(`${URLAPIECOMMERCE}/produtos`);
+  */
 
-  return (
-    <>
-      <DivDflex>
-        {allProducts?.map((item) => (
-          <CardContainer>
-            <CardImg src={item?.url_img} alt="My Image" />
-            <CardContent>
-              <h6>{item?.nome}</h6>
-              <div></div>
-              <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
-            </CardContent>
-          </CardContainer>
-        ))}
-      </DivDflex>
-    </>
-  );
+    return (
+      <>
+        <DivDflex>
+          {data?.map((item) => (
+            <CardContainer>
+              <CardImg src={item?.url_img} alt="My Image" />
+              <CardContent>
+                <h6>{item?.nome}</h6>
+                <div></div>
+                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+              </CardContent>
+            </CardContainer>
+          ))}
+        </DivDflex>
+      </>
+    );
+  }
 };

@@ -38,7 +38,7 @@ export const useFetchApi = (url, params = {}) => {
     if (url) {
       fetchData();
     }
-  }, [isLoading]);
+  }, [url]);
 
   return { data, isLoading, error };
 };

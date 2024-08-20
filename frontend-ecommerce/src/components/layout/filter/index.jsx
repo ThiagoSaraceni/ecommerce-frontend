@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { ArrowDownIcon } from "./ArrowDownIcon";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeOption } from "../../../redux/ecommerceSlice";
 
 const TextFilter = styled.h6`
   font-family: "Saira", sans-serif;
@@ -48,6 +50,15 @@ const Card = styled.div`
 
 export const FilterBy = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const { params } = useSelector((state) => state.ecommerce);
+  const active = params?.option;
+
+  const handleChangeOption = (param) => {
+    dispatch(changeOption(param));
+  };
+
   return (
     <>
       <DColumn>
@@ -57,9 +68,9 @@ export const FilterBy = () => {
         </Dflex>
         <Card isOpen={isOpen}>
           <ul>
-            <li>Novidades</li>
-            <li>Preço: Maior - menor</li>
-            <li>Preço: Menor - maior</li>
+            <li onClick={() => handleChangeOption(4)}>Novidades</li>
+            <li onClick={() => handleChangeOption(5)}>Preço: Maior - menor</li>
+            <li onClick={() => handleChangeOption(6)}>Preço: Menor - maior</li>
           </ul>
         </Card>
       </DColumn>

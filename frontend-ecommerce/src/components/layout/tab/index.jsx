@@ -1,5 +1,7 @@
 import { act, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { changeOption } from "../../../redux/ecommerceSlice";
 
 const Li = styled.li`
   margin-right: 40px;
@@ -17,18 +19,24 @@ const Ul = styled.ul`
 `;
 
 export const Tabs = () => {
-  const [active, setActive] = useState("1");
+  const dispatch = useDispatch();
+  const { params } = useSelector((state) => state.ecommerce);
+  const active = params?.option;
+
+  const handleChangeOption = (param) => {
+    dispatch(changeOption(param));
+  };
 
   return (
     <>
       <Ul>
-        <Li active={active === "1"} onClick={() => setActive("1")}>
+        <Li active={active === 1} onClick={() => handleChangeOption(1)}>
           Todos os produtos
         </Li>
-        <Li active={active === "2"} onClick={() => setActive("2")}>
+        <Li active={active === 2} onClick={() => handleChangeOption(2)}>
           Camisetas
         </Li>
-        <Li active={active === "3"} onClick={() => setActive("3")}>
+        <Li active={active === 3} onClick={() => handleChangeOption(3)}>
           Canecas
         </Li>
       </Ul>
