@@ -70,42 +70,38 @@ export const Card = () => {
 
   const num = params?.option;
 
-  const urlMap = {
-    1: `${URLAPIECOMMERCE}/produtos`,
-    2: `${URLAPIECOMMERCE}/produtos/canecas`,
-    3: `${URLAPIECOMMERCE}/produtos/camisetas`,
+  const paramsMap = {
+    1: {},
+    2: { filterType: "camisa" },
+    3: { filterType: "caneca" },
+    4: { orderBy: "news" },
+    5: { orderBy: "expensive" },
+    6: { orderBy: "cheap" },
   };
 
   console.log(num);
 
-  const url = urlMap[num];
-  console.log(urlMap[num]);
+  const URL = `${URLAPIECOMMERCE}/produtos`;
 
-  if (url) {
-    const { data, isLoading, error } = useFetchApi(url);
+  const parametros = paramsMap[num];
+  console.log(parametros);
 
-    /*const {
-    data: allProducts,
-    isLoading,
-    error,
-  } = useFetchApi(`${URLAPIECOMMERCE}/produtos`);
-  */
+  const { data, isLoading, error } = useFetchApi(URL, parametros);
 
-    return (
-      <>
-        <DivDflex>
-          {data?.map((item) => (
-            <CardContainer>
-              <CardImg src={item?.url_img} alt="My Image" />
-              <CardContent>
-                <h6>{item?.nome}</h6>
-                <div></div>
-                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
-              </CardContent>
-            </CardContainer>
-          ))}
-        </DivDflex>
-      </>
-    );
-  }
+  return (
+    <>
+      <DivDflex>
+        {data?.data?.map((item) => (
+          <CardContainer>
+            <CardImg src={item?.url_img} alt="My Image" />
+            <CardContent>
+              <h6>{item?.nome}</h6>
+              <div></div>
+              <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+            </CardContent>
+          </CardContainer>
+        ))}
+      </DivDflex>
+    </>
+  );
 };
