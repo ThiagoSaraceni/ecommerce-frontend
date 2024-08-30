@@ -4,6 +4,10 @@ import {
   ShoppingBagIcon,
   ShoppingBagIconWhite,
 } from "../components/ShoppingBag/ShopBagIcon";
+import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
+import { formatNumberWithTwoDecimals } from "../utils/currency";
+import { capitalizeFirstLetter } from "../utils/text";
+import { useParams } from "react-router-dom";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -92,30 +96,29 @@ const Button = styled.button`
 `;
 
 export const Detail = () => {
-  const imgTeste =
-    "https://photos.enjoei.com.br/camiseta-anime-one-piece-monkey-d-luffy-ace-sabo-zoro-sanji-camisa-unissex-poliester-90832256/800x800/czM6Ly9waG90b3MuZW5qb2VpLmNvbS5ici9wcm9kdWN0cy8yMjM3NjIwMi83YTkxYzFjZDAzMGExNWNhZTFjNTUyYzAzNWZlYjRmMy5qcGc";
+  const { id } = useParams();
+  console.log({ id });
+  const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
+
+  console.log({ data });
 
   return (
     <>
       <BgColor>
         <BackPage />
         <DisplayBetween>
-          <ImgDetail src={imgTeste} />
+          <ImgDetail src={data?.url_img} />
           <Dbetween>
             <InfoDetail>
-              <span>Caneca</span>
-              <h4>Caneca de cerâmica rústica</h4>
-              <strong>R$ 40.00</strong>
+              <span>{capitalizeFirstLetter(data?.categoria)}</span>
+              <h4>{data?.nome}</h4>
+              <strong>R$ {formatNumberWithTwoDecimals(data?.preco)}</strong>
               <p>
                 *Frete de R$40,00 para todo o Brasil. Grátis para compras acima
                 de R$900,00.
               </p>
               <strong className="description">DESCRIÇÃO</strong>
-              <h6>
-                Aqui vem um texto descritivo do produto, esta caixa de texto
-                servirá apenas de exemplo para que simule algum texto que venha
-                a ser inserido nesse campo, descrevendo tal produto.
-              </h6>
+              <h6>{data?.descricao}</h6>
             </InfoDetail>
             <Button>
               <ShoppingBagIconWhite /> ADICIONAR AO CARRINHO

@@ -12,7 +12,7 @@ export const useFetchApi = (baseUrl, params = {}, options = {}) => {
 
   useEffect(() => {
     const queryString = new URLSearchParams(params).toString();
-    const url = `${baseUrl}?${queryString}`;
+    const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
 
     const fetchData = async () => {
       try {
@@ -39,7 +39,7 @@ export const useFetchApi = (baseUrl, params = {}, options = {}) => {
     };
 
     fetchData();
-  }, [memoizedBaseUrl, memoizedParams]);
+  }, [memoizedBaseUrl, memoizedParams, baseUrl]);
 
   return { data, isLoading, error };
 };

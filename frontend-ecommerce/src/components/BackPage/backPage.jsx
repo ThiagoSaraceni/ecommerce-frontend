@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BackPageIcon } from "./backPageIcon";
+import { useNavigate } from "react-router-dom";
 
 const DivBackPage = styled.div`
   cursor: pointer;
@@ -8,8 +9,8 @@ const DivBackPage = styled.div`
   margin-bottom: 22px;
 
   svg {
-    height: 34px;
-    width: 34px;
+    height: 28px;
+    width: 28px;
   }
 
   strong {
@@ -22,8 +23,10 @@ const DivBackPage = styled.div`
 `;
 
 export const BackPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <DivBackPage>
+    <DivBackPage onClick={() => navigate(`/`)}>
       <BackPageIcon />
       <strong>Voltar</strong>
     </DivBackPage>

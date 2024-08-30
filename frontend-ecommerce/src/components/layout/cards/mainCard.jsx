@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
 import { useSelector } from "react-redux";
+import { formatNumberWithTwoDecimals } from "../../../utils/currency";
+import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
+import { useNavigate } from "react-router-dom";
 
 const CardContainer = styled.div`
   width: 340px;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const CardContent = styled.div`
@@ -53,18 +56,7 @@ const DivDflex = styled.div`
 `;
 
 export const Card = () => {
-  function formatNumberWithTwoDecimals(num) {
-    let numStr = num.toString();
-    if (numStr.includes(".")) {
-      let [integerPart, decimalPart] = numStr.split(".");
-      if (decimalPart.length < 2) {
-        decimalPart = decimalPart.padEnd(2, "0");
-      }
-      return `${integerPart}.${decimalPart}`;
-    } else {
-      return `${numStr}.00`;
-    }
-  }
+  const navigate = useNavigate();
 
   const { params } = useSelector((state) => state.ecommerce);
 
@@ -92,7 +84,7 @@ export const Card = () => {
     <>
       <DivDflex>
         {data?.data?.map((item) => (
-          <CardContainer>
+          <CardContainer onClick={() => navigate(`/detail/${item?.id}`)}>
             <CardImg src={item?.url_img} alt="My Image" />
             <CardContent>
               <h6>{item?.nome}</h6>
