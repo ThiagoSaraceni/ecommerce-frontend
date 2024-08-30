@@ -9,6 +9,12 @@ const CardContainer = styled.div`
   width: 340px;
   overflow: hidden;
   cursor: pointer;
+
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const CardContent = styled.div`

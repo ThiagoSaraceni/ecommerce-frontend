@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
-  height: 100%;
+  min-height: 100vh;
   padding: 20px 160px 20px 160px;
 `;
 
