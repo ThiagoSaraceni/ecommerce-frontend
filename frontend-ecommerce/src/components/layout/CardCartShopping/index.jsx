@@ -50,6 +50,7 @@ const Card = styled.div`
     width: 100%;
     font-family: "Saira";
     font-size: 16px;
+    cursor: pointer;
   }
 `;
 
@@ -59,10 +60,18 @@ const InfoCard = styled.div`
   padding-top: 280px;
   padding-bottom: 12px;
 
-  u {
+  ul {
+    list-style-type: none;
+  }
+
+  li {
     color: #737380;
     font-size: 14px;
     font-family: "Saira";
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 12px;
+    width: fit-content;
   }
 `;
 
@@ -85,10 +94,12 @@ export const CardShoppingCart = () => {
       </div>
       <button>FINALIZAR COMPRA</button>
       <InfoCard>
-        <u>AJUDA</u>
-        <u>REMBOLSOS</u>
-        <u>ENTREGAS E FRETES</u>
-        <u>TROCAR E DEVOLUÇÕES</u>
+        <ul>
+          <li>AJUDA</li>
+          <li>REMBOLSOS</li>
+          <li>ENTREGAS E FRETES</li>
+          <li>TROCAR E DEVOLUÇÕES</li>
+        </ul>
       </InfoCard>
     </Card>
   );
