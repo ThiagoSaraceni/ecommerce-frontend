@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
-import {
-  ShoppingBagIcon,
-  ShoppingBagIconWhite,
-} from "../components/ShoppingBag/ShopBagIcon";
+import { ShoppingBagIconWhite } from "../components/ShoppingBag/ShopBagIcon";
 import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
 import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
@@ -97,10 +94,7 @@ const Button = styled.button`
 
 export const Detail = () => {
   const { id } = useParams();
-  console.log({ id });
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
-
-  console.log({ data });
 
   return (
     <>
