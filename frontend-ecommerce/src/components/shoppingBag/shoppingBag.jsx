@@ -1,5 +1,5 @@
-import { ShoppingBagIcon } from "./ShopBagIcon";
 import styled from "styled-components";
+import { ShoppingBagIcon } from "./shoppingBagIcon";
 
 const ContainerShoppingBag = styled.div`
   width: 24px;
@@ -24,7 +24,6 @@ const LabelQuantity = styled.b`
   font-size: 14px;
   font-weight: 500;
   left: ${({ children }) => (children.toString().length > 1 ? "3px" : "6px")};
-
   //O que estiver dentro da Label quantity vai ser o childreen
   //Mesma coisa de se fazer isso.
   //  left: (props) => (props.children.toString().length > 1 ? "3px" : "6px");
@@ -33,13 +32,11 @@ const LabelQuantity = styled.b`
 export const ShoppingBag = () => {
   const quantity = 12;
   return (
-    <>
-      <ContainerShoppingBag>
-        <ShoppingBagIcon />
-        <QntProduct>
-          <LabelQuantity>{quantity}</LabelQuantity>
-        </QntProduct>
-      </ContainerShoppingBag>
-    </>
+    <ContainerShoppingBag>
+      <ShoppingBagIcon />
+      <QntProduct>
+        <LabelQuantity>{quantity}</LabelQuantity>
+      </QntProduct>
+    </ContainerShoppingBag>
   );
 };

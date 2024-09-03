@@ -2,11 +2,10 @@ import styled from "styled-components";
 import { Tabs } from "../components/layout/tab/index.jsx";
 import { FilterBy } from "../components/layout/filter/index.jsx";
 import { Card } from "../components/layout/cards/mainCard.jsx";
-import { useSelector } from "react-redux";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
-  height: 100%;
+  min-height: 100vh;
   padding: 20px 160px 20px 160px;
 `;
 
