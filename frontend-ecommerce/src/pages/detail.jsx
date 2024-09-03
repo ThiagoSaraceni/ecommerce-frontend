@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
-import { ShoppingBagIconWhite } from "../components/ShoppingBag/ShopBagIcon";
 import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
 import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
 import { useParams } from "react-router-dom";
+import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
