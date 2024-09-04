@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { ShoppingBagIcon } from "./shoppingBagIcon";
+import { useNavigate } from "react-router-dom";
 
 const ContainerShoppingBag = styled.div`
   width: 24px;
   height: 24px;
   position: relative;
+  cursor: pointer;
 `;
 
 const QntProduct = styled.div`
@@ -30,9 +32,11 @@ const LabelQuantity = styled.b`
 `;
 
 export const ShoppingBag = () => {
+  const navigate = useNavigate();
   const quantity = 12;
+
   return (
-    <ContainerShoppingBag>
+    <ContainerShoppingBag onClick={() => navigate(`/cart`)}>
       <ShoppingBagIcon />
       <QntProduct>
         <LabelQuantity>{quantity}</LabelQuantity>

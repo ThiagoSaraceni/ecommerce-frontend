@@ -6,13 +6,11 @@ import { ShoppingCartPage } from "../pages/shoppingCart";
 
 export const Rotas = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="cart" element={<ShoppingCartPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/detail/:id" element={<Detail />} />
+      <Route path="cart" element={<ShoppingCartPage />} />
+    </Routes>
   );
 };
 
