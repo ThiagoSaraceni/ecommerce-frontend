@@ -45,6 +45,8 @@ const CardCart = styled.div`
 `;
 
 const TextCardCart = styled.div`
+  display: flex;
+  flex-direction: column;
   padding-top: 16px;
   padding-left: 31px;
   padding-right: 21px;
@@ -61,7 +63,7 @@ const TextCardCart = styled.div`
     font-weight: 400;
     padding-bottom: 12px;
   }
-  span {
+  p {
     color: #41414d;
     font-family: "Saira";
     font-size: 12px;
@@ -93,6 +95,30 @@ const DFlexBetween = styled.div`
   }
 `;
 
+const DFlexEnd = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-bottom: 12px;
+
+  font-family: "Saira";
+
+  select {
+    border-color: #a8a8b3;
+    border-radius: 8px;
+    padding: 8px 8px 8px 12px;
+    font-size: 16px;
+    color: #737380;
+    outline: none;
+  }
+
+  strong {
+    font-size: 16px;
+    color: #09090a;
+  }
+`;
+
 export const ShoppingCartPage = () => {
   return (
     <>
@@ -113,11 +139,22 @@ export const ShoppingCartPage = () => {
                   <h4>Caneca de cerâmica rústica</h4>
                   <TrashIcon />
                 </DFlexBetween>
-                <span>
+                <p>
                   Aqui vem um texto descritivo do produto, esta caixa de texto
                   servirá apenas de exemplo para que simule algum texto que
                   venha a ser inserido nesse campo, descrevendo tal produto.
-                </span>
+                </p>
+                <DFlexEnd>
+                  <select name="select">
+                    <option value="valor1">1</option>
+                    <option value="valor2">2</option>
+                    <option value="valor3">3</option>
+                    <option value="valor3">4</option>
+                    <option value="valor3">5</option>
+                  </select>
+
+                  <strong>R$ 41,00</strong>
+                </DFlexEnd>
               </TextCardCart>
             </CardCart>
           </div>
