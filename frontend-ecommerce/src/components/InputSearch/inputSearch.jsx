@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { InputSearchIcon } from "./searchIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { handleSearch } from "../../redux/ecommerceSlice";
 
 const MainSearch = styled.input`
   height: 42px;
@@ -33,10 +35,18 @@ const DivSearchIcon = styled.div`
 `;
 
 export const InputSeach = () => {
+  const { search } = useSelector((state) => state?.ecommerce);
+  console.log(search);
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <ContainerInputSearch>
-        <MainSearch placeholder="Procurando por algo específico"></MainSearch>
+        <MainSearch
+          onChange={(e) => dispatch(handleSearch(e?.target?.value))}
+          placeholder="Procurando por algo específico"
+        ></MainSearch>
         <DivSearchIcon>
           <InputSearchIcon />
         </DivSearchIcon>

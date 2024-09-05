@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
 import { CardShoppingCart } from "../components/layout/CardCartShopping";
-import { TrashIcon } from "../components/trashIcon";
+import { TrashIcon } from "../components/Trash/trashIcon";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;

@@ -4,6 +4,7 @@ const initialState = {
   params: {
     option: 1,
   },
+  search: null,
 };
 
 export const ecommerceSlice = createSlice({
@@ -13,9 +14,12 @@ export const ecommerceSlice = createSlice({
     changeOption(state, { payload }) {
       state.params.option = payload;
     },
+    handleSearch(state, { payload }) {
+      state.search = payload;
+    },
   },
 });
 
-export const { changeOption } = ecommerceSlice.actions;
+export const { changeOption, handleSearch } = ecommerceSlice.actions;
 
 export default ecommerceSlice.reducer;

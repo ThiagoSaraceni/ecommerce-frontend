@@ -64,7 +64,7 @@ const DivDflex = styled.div`
 export const Card = () => {
   const navigate = useNavigate();
 
-  const { params } = useSelector((state) => state.ecommerce);
+  const { params, search } = useSelector((state) => state.ecommerce);
 
   const num = params?.option;
 
@@ -77,29 +77,48 @@ export const Card = () => {
     6: { orderBy: "cheap" },
   };
 
-  console.log(num);
-
   const URL = `${URLAPIECOMMERCE}/produtos`;
 
   const parametros = paramsMap[num];
-  console.log(parametros);
 
   const { data, isLoading, error } = useFetchApi(URL, parametros);
 
+  const dados = data?.data;
+
+  const dataSearched =
+    dados?.filter((item) =>
+      item?.nome?.toLowerCase()?.includes(search?.toLowerCase())
+    ) || null;
+
   return (
-    <>
-      <DivDflex>
-        {data?.data?.map((item) => (
-          <CardContainer onClick={() => navigate(`/detail/${item?.id}`)}>
-            <CardImg src={item?.url_img} alt="My Image" />
-            <CardContent>
-              <h6>{item?.nome}</h6>
-              <div></div>
-              <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
-            </CardContent>
-          </CardContainer>
-        ))}
-      </DivDflex>
-    </>
+    <DivDflex>
+      {dataSearched && dataSearched.length > 0
+        ? dataSearched?.map((item) => (
+            <CardContainer
+              onClick={() => navigate(`/detail/${item?.id}`)}
+              key={item?.id}
+            >
+              <CardImg src={item?.url_img} alt="My Image" />
+              <CardContent>
+                <h6>{item?.nome}</h6>
+                <div></div>
+                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+              </CardContent>
+            </CardContainer>
+          ))
+        : data?.data?.map((item) => (
+            <CardContainer
+              onClick={() => navigate(`/detail/${item?.id}`)}
+              key={item?.id}
+            >
+              <CardImg src={item?.url_img} alt="My Image" />
+              <CardContent>
+                <h6>{item?.nome}</h6>
+                <div></div>
+                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+              </CardContent>
+            </CardContainer>
+          ))}
+    </DivDflex>
   );
 };
