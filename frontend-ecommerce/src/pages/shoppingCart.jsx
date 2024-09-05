@@ -5,7 +5,7 @@ import { TrashIcon } from "../components/Trash/trashIcon";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   padding: 20px 160px 20px 160px;
 `;
 
@@ -121,46 +121,44 @@ const DFlexEnd = styled.div`
 
 export const ShoppingCartPage = () => {
   return (
-    <>
-      <BgColor>
-        <Container>
-          <div className="carrinho">
-            <BackPage />
-            <TextInfo>
-              <h4>SEU CARRINHO</h4>
-              <span>
-                Total(3 produtos) <strong>R$ 161,00</strong>
-              </span>
-            </TextInfo>
-            <CardCart>
-              <img src="https://www.leveshoes.com.br/wp-content/uploads/2022/07/IMG-20220727-WA0029.jpg" />
-              <TextCardCart>
-                <DFlexBetween>
-                  <h4>Caneca de cerâmica rústica</h4>
-                  <TrashIcon />
-                </DFlexBetween>
-                <p>
-                  Aqui vem um texto descritivo do produto, esta caixa de texto
-                  servirá apenas de exemplo para que simule algum texto que
-                  venha a ser inserido nesse campo, descrevendo tal produto.
-                </p>
-                <DFlexEnd>
-                  <select name="select">
-                    <option value="valor1">1</option>
-                    <option value="valor2">2</option>
-                    <option value="valor3">3</option>
-                    <option value="valor3">4</option>
-                    <option value="valor3">5</option>
-                  </select>
+    <BgColor>
+      <Container>
+        <div className="carrinho">
+          <BackPage />
+          <TextInfo>
+            <h4>SEU CARRINHO</h4>
+            <span>
+              Total(3 produtos) <strong>R$ 161,00</strong>
+            </span>
+          </TextInfo>
+          <CardCart>
+            <img src="https://www.leveshoes.com.br/wp-content/uploads/2022/07/IMG-20220727-WA0029.jpg" />
+            <TextCardCart>
+              <DFlexBetween>
+                <h4>Caneca de cerâmica rústica</h4>
+                <TrashIcon />
+              </DFlexBetween>
+              <p>
+                Aqui vem um texto descritivo do produto, esta caixa de texto
+                servirá apenas de exemplo para que simule algum texto que venha
+                a ser inserido nesse campo, descrevendo tal produto.
+              </p>
+              <DFlexEnd>
+                <select name="select">
+                  <option value="valor1">1</option>
+                  <option value="valor2">2</option>
+                  <option value="valor3">3</option>
+                  <option value="valor3">4</option>
+                  <option value="valor3">5</option>
+                </select>
 
-                  <strong>R$ 41,00</strong>
-                </DFlexEnd>
-              </TextCardCart>
-            </CardCart>
-          </div>
-          <CardShoppingCart />
-        </Container>
-      </BgColor>
-    </>
+                <strong>R$ 41,00</strong>
+              </DFlexEnd>
+            </TextCardCart>
+          </CardCart>
+        </div>
+        <CardShoppingCart />
+      </Container>
+    </BgColor>
   );
 };
