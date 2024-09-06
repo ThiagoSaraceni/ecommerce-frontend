@@ -9,7 +9,6 @@ import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon"
 const BgColor = styled.div`
   background-color: #f0f0f5;
   min-height: calc(100vh - 80px);
-
   padding: 20px 160px 20px 160px;
 `;
 

@@ -67,6 +67,18 @@ const Container = styled.div`
     }
   }
 
+  .d-flex {
+    display: flex;
+    gap: 20px;
+  }
+
+  .space {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+  }
+
   small {
     font-family: "Saira";
     color: #737380;
@@ -79,13 +91,12 @@ const Container = styled.div`
 
   div {
     display: flex;
-    align-items: center;
     justify-content: end;
     margin-top: 14px;
   }
 `;
 
-export const Login = () => {
+export const RegisterUser = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
@@ -97,19 +108,27 @@ export const Login = () => {
         <AlignCenter>
           <Card>
             <Container>
-              <label>Login</label>
-              <input {...register("user_login")}></input>
-
+              <div className="d-flex">
+                <div className="space">
+                  <label>Nome</label>
+                  <input type="text" {...register("name")} />
+                </div>
+                <div className="space">
+                  <label>Sobrenome</label>
+                  <input type="text" {...register("surname")} />
+                </div>
+              </div>
+              <label className="second-label">E-mail</label>
+              <input type="email" {...register("email")} />
               <label className="second-label">Senha</label>
-              <input type="password" {...register("user_password")}></input>
-              <button>FAZER LOGIN</button>
+              <input type="password" {...register("password")} />
+              <label className="second-label">Confirmar senha</label>
+              <input type="password" {...register("confirm_password")} />
+              <button>CADASTRAR-SE</button>
               <div>
-                <small>Não possui conta?&nbsp;</small>
-                <small
-                  className="warning"
-                  onClick={() => navigate(`/register`)}
-                >
-                  Cadastre-se
+                <small>Já possui uma conta?&nbsp;</small>
+                <small className="warning" onClick={() => navigate(`/login`)}>
+                  Fazer login
                 </small>
               </div>
             </Container>
