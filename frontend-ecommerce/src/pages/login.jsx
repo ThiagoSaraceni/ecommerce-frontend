@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -89,19 +92,32 @@ export const Login = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const { response, result } = await useFetchApiPost(
+      `${URLAPIECOMMERCE}login`,
+      data
+    );
+
+    if (response?.ok) {
+      navigate(`/home`);
+    }
+    return toast.error("Usuário não encontrado!");
+  };
 
   return (
     <BgColor>
+      <Toaster />
       <form onSubmit={handleSubmit(onSubmit)}>
         <AlignCenter>
           <Card>
             <Container>
-              <label>Login</label>
-              <input {...register("user_login")}></input>
+              <label for="email">E-mail</label>
+              <input id="email" {...register("email")}></input>
 
-              <label className="second-label">Senha</label>
-              <input type="password" {...register("user_password")}></input>
+              <label for="senha" className="second-label">
+                Senha
+              </label>
+              <input id="senha" type="password" {...register("senha")}></input>
               <button>FAZER LOGIN</button>
               <div>
                 <small>Não possui conta?&nbsp;</small>

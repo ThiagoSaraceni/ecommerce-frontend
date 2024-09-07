@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { URLAPIECOMMERCE, useFetchApiPost } from "../useFetchApi";
+import toast, { Toaster } from "react-hot-toast";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -89,10 +91,10 @@ const Container = styled.div`
     cursor: pointer;
   }
 
-  div {
+  .lbl-info {
     display: flex;
     justify-content: end;
-    margin-top: 14px;
+    margin-top: 12px;
   }
 `;
 
@@ -100,32 +102,67 @@ export const RegisterUser = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    if (data?.senha !== data?.confirm_password) {
+      return toast.error("Senhas não coincidem");
+    }
+    try {
+      const { response, result } = await useFetchApiPost(
+        `${URLAPIECOMMERCE}cliente`,
+        data
+      );
+
+      console.log({ response, result });
+      if (response?.status === 201) {
+        return toast.success("Usuário cadastrado com sucesso!");
+      }
+      if (response?.status === 409) {
+        return toast.error("Já existe um usuário com esse email");
+      }
+    } catch (error) {
+      toast.error("Erro ao registrar usuário");
+    }
+  };
 
   return (
     <BgColor>
+      <Toaster />
       <form onSubmit={handleSubmit(onSubmit)}>
         <AlignCenter>
           <Card>
             <Container>
               <div className="d-flex">
                 <div className="space">
-                  <label>Nome</label>
-                  <input type="text" {...register("name")} />
+                  <label for="nome">Nome</label>
+                  <input type="text" id="nome" {...register("nome")} />
                 </div>
                 <div className="space">
-                  <label>Sobrenome</label>
-                  <input type="text" {...register("surname")} />
+                  <label for="sobrenome">Sobrenome</label>
+                  <input
+                    type="text"
+                    id="sobrenome"
+                    {...register("sobrenome")}
+                  />
                 </div>
               </div>
-              <label className="second-label">E-mail</label>
-              <input type="email" {...register("email")} />
-              <label className="second-label">Senha</label>
-              <input type="password" {...register("password")} />
-              <label className="second-label">Confirmar senha</label>
-              <input type="password" {...register("confirm_password")} />
+              <label for="email" className="second-label">
+                E-mail
+              </label>
+              <input type="email" id="email" {...register("email")} />
+              <label for="senha" className="second-label">
+                Senha
+              </label>
+              <input type="password" id="senha" {...register("senha")} />
+              <label for="confirm_password" className="second-label">
+                Confirmar senha
+              </label>
+              <input
+                type="password"
+                id="confirm_password"
+                {...register("confirm_password")}
+              />
               <button>CADASTRAR-SE</button>
-              <div>
+              <div className="lbl-info">
                 <small>Já possui uma conta?&nbsp;</small>
                 <small className="warning" onClick={() => navigate(`/login`)}>
                   Fazer login

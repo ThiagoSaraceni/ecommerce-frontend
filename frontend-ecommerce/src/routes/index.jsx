@@ -9,11 +9,11 @@ import { RegisterUser } from "../pages/register";
 export const Rotas = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<RegisterUser />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/cart" element={<ShoppingCartPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<RegisterUser />} />
     </Routes>
   );
 };

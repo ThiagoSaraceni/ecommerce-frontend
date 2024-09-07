@@ -26,7 +26,7 @@ export const BackPage = () => {
   const navigate = useNavigate();
 
   return (
-    <DivBackPage onClick={() => navigate(`/`)}>
+    <DivBackPage onClick={() => navigate(`/home`)}>
       <BackPageIcon />
       <strong>Voltar</strong>
     </DivBackPage>
