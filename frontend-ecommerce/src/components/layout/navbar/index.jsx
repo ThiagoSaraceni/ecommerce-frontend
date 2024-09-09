@@ -1,8 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
 import { InputSeach } from "../../InputSearch/inputSearch";
 import { ShoppingBag } from "../../shoppingBag/shoppingBag";
 import * as S from "./styles";
+import { handleUserId } from "../../../redux/ecommerceSlice";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+  const { userId } = useSelector((state) => state.ecommerce);
+  console.log({ userId });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleUser = () => {
+    userId ? dispatch(handleUserId(null)) : navigate(`/`);
+  };
+
   return (
     <S.Container>
       <S.DivDFlex>
@@ -10,6 +23,9 @@ export const Navbar = () => {
         <S.RightContainer>
           <InputSeach />
           <ShoppingBag />
+          <S.ButtonLogin userId={userId} onClick={handleUser}>
+            {userId ? "Logout" : "Login"}
+          </S.ButtonLogin>
         </S.RightContainer>
       </S.DivDFlex>
     </S.Container>

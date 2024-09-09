@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { handleUserId } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -92,6 +94,10 @@ export const Login = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
+  const dispatch = useDispatch();
+
+  const setUserId = (id) => dispatch(handleUserId(id));
+
   const onSubmit = async (data) => {
     const { response, result } = await useFetchApiPost(
       `${URLAPIECOMMERCE}login`,
@@ -99,6 +105,7 @@ export const Login = () => {
     );
 
     if (response?.ok) {
+      setUserId(result?.usuario?.id);
       navigate(`/home`);
     }
     return toast.error("Usuário não encontrado!");

@@ -41,3 +41,17 @@ export const RightContainer = styled.div`
   align-items: center;
   gap: 20px;
 `;
+
+export const ButtonLogin = styled.button`
+  background-color: ${(props) => (props.userId ? "#115D8C" : "#0fa958")};
+  color: #ffff;
+  border-radius: 6px;
+  height: 42px;
+  width: 25%;
+  border: none;
+  font-family: "Saira";
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 60px;
+  cursor: pointer;
+`;

@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react";
-import toast, { Toaster } from "react-hot-toast";
 
 export const URLAPIECOMMERCE = "http://localhost:3000/api/";
 
@@ -39,11 +38,6 @@ export const useFetchApi = (baseUrl, params = {}) => {
 };
 
 export const useFetchApiPost = async (baseUrl, body = {}) => {
-  const showSuccessAlert = (message) => {
-    toast.success(message);
-  };
-  const toastError = (message) => toast.error(message);
-
   try {
     const response = await fetch(baseUrl, {
       method: "POST",
@@ -54,11 +48,7 @@ export const useFetchApiPost = async (baseUrl, body = {}) => {
     });
     const result = await response.json();
 
-    if (!response?.ok) {
-      return { response, result };
-    } else {
-      return { response, result };
-    }
+    return { response, result };
   } catch (error) {
     toastError();
   }

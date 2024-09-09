@@ -5,6 +5,7 @@ const initialState = {
     option: 1,
   },
   search: null,
+  userId: null,
 };
 
 export const ecommerceSlice = createSlice({
@@ -17,9 +18,13 @@ export const ecommerceSlice = createSlice({
     handleSearch(state, { payload }) {
       state.search = payload;
     },
+    handleUserId(state, { payload }) {
+      state.userId = payload;
+    },
   },
 });
 
-export const { changeOption, handleSearch } = ecommerceSlice.actions;
+export const { changeOption, handleSearch, handleUserId } =
+  ecommerceSlice.actions;
 
 export default ecommerceSlice.reducer;

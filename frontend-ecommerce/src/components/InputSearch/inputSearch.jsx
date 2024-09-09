@@ -26,7 +26,6 @@ const DivSearchIcon = styled.div`
   top: 55%;
   right: 8%;
   transform: translateY(-50%);
-  cursor: pointer;
 
   svg {
     width: 100%;
