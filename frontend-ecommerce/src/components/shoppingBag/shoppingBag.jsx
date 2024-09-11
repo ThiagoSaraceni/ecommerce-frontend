@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { ShoppingBagIcon } from "./shoppingBagIcon";
 import { useNavigate } from "react-router-dom";
+import { URLAPIECOMMERCE, useFetchApi } from "../../useFetchApi";
+import { useSelector } from "react-redux";
 
 const ContainerShoppingBag = styled.div`
   width: 24px;
@@ -33,13 +35,19 @@ const LabelQuantity = styled.b`
 
 export const ShoppingBag = () => {
   const navigate = useNavigate();
-  const quantity = 12;
+  const { userId } = useSelector((state) => state.ecommerce);
+
+  const { data: quantity } = useFetchApi(
+    `${URLAPIECOMMERCE}/quantity/${userId}}`
+  );
+
+  //const quantity = 12;
 
   return (
     <ContainerShoppingBag onClick={() => navigate(`/cart`)}>
       <ShoppingBagIcon />
       <QntProduct>
-        <LabelQuantity>{quantity}</LabelQuantity>
+        <LabelQuantity>{quantity?.count ?? 0}</LabelQuantity>
       </QntProduct>
     </ContainerShoppingBag>
   );
