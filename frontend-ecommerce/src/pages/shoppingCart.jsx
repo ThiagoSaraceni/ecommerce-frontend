@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
 import { CardShoppingCart } from "../components/layout/CardCartShopping";
 import { TrashIcon } from "../components/Trash/trashIcon";
+import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
+import { useSelector } from "react-redux";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -10,7 +12,6 @@ const BgColor = styled.div`
 `;
 
 const TextInfo = styled.div`
-  margin-bottom: 23px;
   h4 {
     font-size: 24px;
     font-weight: 500;
@@ -31,17 +32,20 @@ const TextInfo = styled.div`
 `;
 
 const CardCart = styled.div`
-  height: 200px;
+  margin-top: 20px;
+  height: 250px;
   display: flex;
   border-radius: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
 
   img {
-    width: 30%;
-    height: 211px;
+    width: 100%;
+    height: 250px;
     object-fit: cover;
   }
+
+  width: 95%;
 `;
 
 const TextCardCart = styled.div`
@@ -74,7 +78,7 @@ const Container = styled.div`
   display: flex;
 
   .carrinho {
-    width: 80%;
+    width: 70%;
   }
 `;
 
@@ -120,6 +124,12 @@ const DFlexEnd = styled.div`
 `;
 
 export const ShoppingCartPage = () => {
+  const { userId } = useSelector((state) => state.ecommerce);
+  const { data, isLoading } = useFetchApi(
+    `${URLAPIECOMMERCE}/incart/${userId}`
+  );
+
+  console.log({ data });
   return (
     <BgColor>
       <Container>
@@ -131,31 +141,35 @@ export const ShoppingCartPage = () => {
               Total(3 produtos) <strong>R$ 161,00</strong>
             </span>
           </TextInfo>
-          <CardCart>
-            <img src="https://www.leveshoes.com.br/wp-content/uploads/2022/07/IMG-20220727-WA0029.jpg" />
-            <TextCardCart>
-              <DFlexBetween>
-                <h4>Caneca de cerâmica rústica</h4>
-                <TrashIcon />
-              </DFlexBetween>
-              <p>
-                Aqui vem um texto descritivo do produto, esta caixa de texto
-                servirá apenas de exemplo para que simule algum texto que venha
-                a ser inserido nesse campo, descrevendo tal produto.
-              </p>
-              <DFlexEnd>
-                <select name="select">
-                  <option value="valor1">1</option>
-                  <option value="valor2">2</option>
-                  <option value="valor3">3</option>
-                  <option value="valor3">4</option>
-                  <option value="valor3">5</option>
-                </select>
+          {!isLoading ? (
+            data?.data?.map((item) => (
+              <CardCart>
+                <img src={item?.url_img} />
+                <TextCardCart>
+                  <DFlexBetween>
+                    <h4>{item?.nome}</h4>
+                    <TrashIcon />
+                  </DFlexBetween>
+                  <p>{item?.descricao}</p>
+                  <DFlexEnd>
+                    <select name="select">
+                      <option value="valor1">1</option>
+                      <option value="valor2">2</option>
+                      <option value="valor3">3</option>
+                      <option value="valor3">4</option>
+                      <option value="valor3">5</option>
+                    </select>
 
-                <strong>R$ 41,00</strong>
-              </DFlexEnd>
-            </TextCardCart>
-          </CardCart>
+                    <strong>R$ 41,00</strong>
+                  </DFlexEnd>
+                </TextCardCart>
+              </CardCart>
+            ))
+          ) : (
+            <>
+              <h4>Carregando dados....</h4>
+            </>
+          )}
         </div>
         <CardShoppingCart />
       </Container>
