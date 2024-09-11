@@ -1,10 +1,12 @@
+import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
-import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
+import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
 import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
 import { useParams } from "react-router-dom";
 import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon";
+import { useSelector } from "react-redux";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -93,11 +95,33 @@ const Button = styled.button`
 `;
 
 export const Detail = () => {
+  const { userId } = useSelector((state) => state.ecommerce);
   const { id } = useParams();
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
 
+  const handleAddToCart = async () => {
+    console.log("clicou");
+    const addToCart = {
+      clienteId: userId,
+      produtoId: id,
+      quantidade: 1,
+    };
+
+    const { response } = await useFetchApiPost(
+      `${URLAPIECOMMERCE}add`,
+      addToCart
+    );
+
+    if (response.status === 200) {
+      return toast.success("Produto adicionado ao carrinho");
+    }
+
+    console.log({ response });
+  };
+
   return (
     <BgColor>
+      <Toaster />
       <BackPage />
       <DisplayBetween>
         <ImgDetail src={data?.url_img} />
@@ -113,7 +137,7 @@ export const Detail = () => {
             <strong className="description">DESCRIÇÃO</strong>
             <h6>{data?.descricao}</h6>
           </InfoDetail>
-          <Button>
+          <Button onClick={handleAddToCart}>
             <ShoppingBagIconWhite /> ADICIONAR AO CARRINHO
           </Button>
         </Dbetween>
