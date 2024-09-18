@@ -2,8 +2,15 @@ import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
 import { CardShoppingCart } from "../components/layout/CardCartShopping";
 import { TrashIcon } from "../components/Trash/trashIcon";
-import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
-import { useSelector } from "react-redux";
+import {
+  URLAPIECOMMERCE,
+  useFetchApi,
+  useFetchApiDelete,
+} from "../useFetchApi";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { handleRefreshCart } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -124,12 +131,45 @@ const DFlexEnd = styled.div`
 `;
 
 export const ShoppingCartPage = () => {
-  const { userId } = useSelector((state) => state.ecommerce);
+  const dispatch = useDispatch();
+  const [productDelete, setProductDelete] = useState("");
+  const { userId, refreshCart } = useSelector((state) => state.ecommerce);
+
+  const getIdProduct = (id) => setProductDelete(id);
+
+  const setFalseRefresh = () => dispatch(handleRefreshCart(false));
+  const setTrueRefresh = () => dispatch(handleRefreshCart(true));
+
+  useEffect(() => {
+    if (refreshCart) {
+      setFalseRefresh();
+    }
+  }, [dispatch, refreshCart]);
+
   const { data, isLoading } = useFetchApi(
-    `${URLAPIECOMMERCE}/incart/${userId}`
+    `${URLAPIECOMMERCE}/incart/${userId}`,
+    {},
+    refreshCart
   );
 
-  console.log({ data });
+  useEffect(() => {
+    const deleteProduct = async () => {
+      if (productDelete !== "") {
+        const queryParams = { clienteId: userId, produtoId: productDelete };
+        const { result } = await useFetchApiDelete(
+          `${URLAPIECOMMERCE}/delete`,
+          queryParams
+        );
+        if (result?.success === true) {
+          setTrueRefresh();
+        }
+        setProductDelete("");
+      }
+    };
+
+    deleteProduct();
+  }, [productDelete]);
+
   return (
     <BgColor>
       <Container>
@@ -148,7 +188,9 @@ export const ShoppingCartPage = () => {
                 <TextCardCart>
                   <DFlexBetween>
                     <h4>{item?.nome}</h4>
-                    <TrashIcon />
+                    <div onClick={() => getIdProduct(item?.id)}>
+                      <TrashIcon />
+                    </div>
                   </DFlexBetween>
                   <p>{item?.descricao}</p>
                   <DFlexEnd>

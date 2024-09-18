@@ -6,7 +6,8 @@ import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
 import { useParams } from "react-router-dom";
 import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleRefreshCart } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
@@ -95,9 +96,14 @@ const Button = styled.button`
 `;
 
 export const Detail = () => {
-  const { userId } = useSelector((state) => state.ecommerce);
+  const { userId, refreshCart } = useSelector((state) => state.ecommerce);
   const { id } = useParams();
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
+
+  console.log({ refreshCart });
+  const dispatch = useDispatch();
+
+  const resetShoppingBag = () => dispatch(handleRefreshCart(true));
 
   const handleAddToCart = async () => {
     console.log("clicou");
@@ -113,6 +119,7 @@ export const Detail = () => {
     );
 
     if (response.status === 200) {
+      resetShoppingBag();
       return toast.success("Produto adicionado ao carrinho");
     }
 

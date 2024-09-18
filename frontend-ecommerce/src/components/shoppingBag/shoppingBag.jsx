@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { ShoppingBagIcon } from "./shoppingBagIcon";
 import { useNavigate } from "react-router-dom";
 import { URLAPIECOMMERCE, useFetchApi } from "../../useFetchApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { handleRefreshCart } from "../../redux/ecommerceSlice";
 
 const ContainerShoppingBag = styled.div`
   width: 24px;
@@ -34,20 +36,34 @@ const LabelQuantity = styled.b`
 `;
 
 export const ShoppingBag = () => {
-  const navigate = useNavigate();
-  const { userId } = useSelector((state) => state.ecommerce);
-
-  const { data: quantity } = useFetchApi(
-    `${URLAPIECOMMERCE}/quantity/${userId}}`
+  const { userId, refreshCart } = useSelector((state) => state.ecommerce);
+  const { data } = useFetchApi(
+    `${URLAPIECOMMERCE}/quantity/${userId}`,
+    {},
+    refreshCart
   );
 
-  //const quantity = 12;
+  const navigate = useNavigate();
+
+  console.log({ refreshCart });
+
+  const dispatch = useDispatch();
+
+  const setFalseRefresh = () => dispatch(handleRefreshCart(false));
+
+  useEffect(() => {
+    if (refreshCart) {
+      setFalseRefresh();
+    }
+  }, [dispatch, refreshCart]);
+
+  console.log(data?.count);
 
   return (
     <ContainerShoppingBag onClick={() => navigate(`/cart`)}>
       <ShoppingBagIcon />
       <QntProduct>
-        <LabelQuantity>{quantity?.count ?? 0}</LabelQuantity>
+        <LabelQuantity>{data?.count ?? 0}</LabelQuantity>
       </QntProduct>
     </ContainerShoppingBag>
   );
