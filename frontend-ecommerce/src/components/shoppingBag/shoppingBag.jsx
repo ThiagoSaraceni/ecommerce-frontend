@@ -37,6 +37,7 @@ const LabelQuantity = styled.b`
 
 export const ShoppingBag = () => {
   const { userId, refreshCart } = useSelector((state) => state.ecommerce);
+
   const { data } = useFetchApi(
     `${URLAPIECOMMERCE}/quantity/${userId}`,
     {},
@@ -63,7 +64,7 @@ export const ShoppingBag = () => {
     <ContainerShoppingBag onClick={() => navigate(`/cart`)}>
       <ShoppingBagIcon />
       <QntProduct>
-        <LabelQuantity>{data?.count ?? 0}</LabelQuantity>
+        <LabelQuantity>{userId ? data?.count : 0}</LabelQuantity>
       </QntProduct>
     </ContainerShoppingBag>
   );
