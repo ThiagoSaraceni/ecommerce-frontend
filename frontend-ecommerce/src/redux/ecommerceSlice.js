@@ -7,6 +7,7 @@ const initialState = {
   search: null,
   userId: null,
   refreshCart: false,
+  page: 1,
 };
 
 export const ecommerceSlice = createSlice({
@@ -25,10 +26,18 @@ export const ecommerceSlice = createSlice({
     handleRefreshCart(state, { payload }) {
       state.refreshCart = payload;
     },
+    handlePageChange(state, { payload }) {
+      state.page = payload;
+    },
   },
 });
 
-export const { changeOption, handleSearch, handleUserId, handleRefreshCart } =
-  ecommerceSlice.actions;
+export const {
+  changeOption,
+  handleSearch,
+  handleUserId,
+  handleRefreshCart,
+  handlePageChange,
+} = ecommerceSlice.actions;
 
 export default ecommerceSlice.reducer;

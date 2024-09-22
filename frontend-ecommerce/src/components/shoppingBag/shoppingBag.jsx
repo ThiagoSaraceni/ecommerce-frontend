@@ -64,7 +64,7 @@ export const ShoppingBag = () => {
     <ContainerShoppingBag onClick={() => navigate(`/cart`)}>
       <ShoppingBagIcon />
       <QntProduct>
-        <LabelQuantity>{userId ? data?.count : 0}</LabelQuantity>
+        <LabelQuantity>{userId ? data?.count ?? 0 : 0}</LabelQuantity>
       </QntProduct>
     </ContainerShoppingBag>
   );

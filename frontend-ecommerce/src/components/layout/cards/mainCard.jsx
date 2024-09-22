@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { formatNumberWithTwoDecimals } from "../../../utils/currency";
 import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
 import { useNavigate } from "react-router-dom";
+import Paginacao from "../../pagination/usePagination";
 
 const CardContainer = styled.div`
   width: 340px;
@@ -61,20 +62,26 @@ const DivDflex = styled.div`
   gap: 36px;
 `;
 
+const FlexEnd = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+`;
+
 export const Card = () => {
   const navigate = useNavigate();
 
-  const { params, search } = useSelector((state) => state.ecommerce);
+  const { params, search, page } = useSelector((state) => state.ecommerce);
 
   const num = params?.option;
 
   const paramsMap = {
-    1: {},
-    2: { filterType: "camisa" },
-    3: { filterType: "caneca" },
-    4: { orderBy: "news" },
-    5: { orderBy: "expensive" },
-    6: { orderBy: "cheap" },
+    1: { page: page },
+    2: { filterType: "camisa", page: page },
+    3: { filterType: "caneca", page: page },
+    4: { orderBy: "news", page: page },
+    5: { orderBy: "expensive", page: page },
+    6: { orderBy: "cheap", page: page },
   };
 
   const URL = `${URLAPIECOMMERCE}/produtos`;
@@ -90,35 +97,43 @@ export const Card = () => {
       item?.nome?.toLowerCase()?.includes(search?.toLowerCase())
     ) || null;
 
+  console.log({ page });
+
   return (
-    <DivDflex>
-      {dataSearched && dataSearched.length > 0
-        ? dataSearched?.map((item) => (
-            <CardContainer
-              onClick={() => navigate(`/detail/${item?.id}`)}
-              key={item?.id}
-            >
-              <CardImg src={item?.url_img} alt="My Image" />
-              <CardContent>
-                <h6>{item?.nome}</h6>
-                <div></div>
-                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
-              </CardContent>
-            </CardContainer>
-          ))
-        : data?.data?.map((item) => (
-            <CardContainer
-              onClick={() => navigate(`/detail/${item?.id}`)}
-              key={item?.id}
-            >
-              <CardImg src={item?.url_img} alt="My Image" />
-              <CardContent>
-                <h6>{item?.nome}</h6>
-                <div></div>
-                <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
-              </CardContent>
-            </CardContainer>
-          ))}
-    </DivDflex>
+    <>
+      <FlexEnd>
+        <Paginacao totalPages={data?.totalPages} currentPage={data?.page} />
+      </FlexEnd>
+
+      <DivDflex>
+        {dataSearched && dataSearched.length > 0
+          ? dataSearched?.map((item) => (
+              <CardContainer
+                onClick={() => navigate(`/detail/${item?.id}`)}
+                key={item?.id}
+              >
+                <CardImg src={item?.url_img} alt="My Image" />
+                <CardContent>
+                  <h6>{item?.nome}</h6>
+                  <div></div>
+                  <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+                </CardContent>
+              </CardContainer>
+            ))
+          : data?.data?.map((item) => (
+              <CardContainer
+                onClick={() => navigate(`/detail/${item?.id}`)}
+                key={item?.id}
+              >
+                <CardImg src={item?.url_img} alt="My Image" />
+                <CardContent>
+                  <h6>{item?.nome}</h6>
+                  <div></div>
+                  <strong>R$ {formatNumberWithTwoDecimals(item?.preco)}</strong>
+                </CardContent>
+              </CardContainer>
+            ))}
+      </DivDflex>
+    </>
   );
 };
