@@ -46,8 +46,6 @@ export const ShoppingBag = () => {
 
   const navigate = useNavigate();
 
-  console.log({ refreshCart });
-
   const dispatch = useDispatch();
 
   const setFalseRefresh = () => dispatch(handleRefreshCart(false));
@@ -57,8 +55,6 @@ export const ShoppingBag = () => {
       setFalseRefresh();
     }
   }, [dispatch, refreshCart]);
-
-  console.log(data?.count);
 
   return (
     <ContainerShoppingBag onClick={() => navigate(`/cart`)}>

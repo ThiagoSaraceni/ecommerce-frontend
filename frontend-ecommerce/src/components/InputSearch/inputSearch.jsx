@@ -35,7 +35,6 @@ const DivSearchIcon = styled.div`
 
 export const InputSeach = () => {
   const { search } = useSelector((state) => state?.ecommerce);
-  console.log(search);
 
   const dispatch = useDispatch();
 

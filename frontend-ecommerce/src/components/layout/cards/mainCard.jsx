@@ -97,8 +97,6 @@ export const Card = () => {
       item?.nome?.toLowerCase()?.includes(search?.toLowerCase())
     ) || null;
 
-  console.log({ page });
-
   return (
     <>
       <FlexEnd>

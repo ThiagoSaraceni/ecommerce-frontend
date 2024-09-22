@@ -112,7 +112,6 @@ export const RegisterUser = () => {
         data
       );
 
-      console.log({ response, result });
       if (response?.status === 201) {
         return toast.success("Usuário cadastrado com sucesso!");
       }

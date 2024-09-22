@@ -65,7 +65,6 @@ export const useFetchApiDelete = async (baseUrl, params = {}) => {
         "Content-Type": "application/json",
       },
     });
-    console.log({ response });
     if (response?.status === 204) {
       // Sucesso na deleção
 
@@ -74,6 +73,6 @@ export const useFetchApiDelete = async (baseUrl, params = {}) => {
       return { result: { success: false } };
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };

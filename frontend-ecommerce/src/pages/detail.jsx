@@ -100,13 +100,11 @@ export const Detail = () => {
   const { id } = useParams();
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
 
-  console.log({ refreshCart });
   const dispatch = useDispatch();
 
   const resetShoppingBag = () => dispatch(handleRefreshCart(true));
 
   const handleAddToCart = async () => {
-    console.log("clicou");
     const addToCart = {
       clienteId: userId,
       produtoId: id,
@@ -122,8 +120,6 @@ export const Detail = () => {
       resetShoppingBag();
       return toast.success("Produto adicionado ao carrinho");
     }
-
-    console.log({ response });
   };
 
   return (
