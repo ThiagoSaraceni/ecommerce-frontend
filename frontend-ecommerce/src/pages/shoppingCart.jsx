@@ -152,6 +152,16 @@ export const ShoppingCartPage = () => {
     refreshCart
   );
 
+  const totProd = data?.data?.length;
+
+  let somaPrice = 0;
+  const qntProduto = data?.data?.map((item) => {
+    somaPrice += item?.preco;
+  });
+
+  console.log({ somaPrice, qntProduto });
+
+  console.log(data);
   useEffect(() => {
     const deleteProduct = async () => {
       if (productDelete !== "") {
@@ -178,7 +188,8 @@ export const ShoppingCartPage = () => {
           <TextInfo>
             <h4>SEU CARRINHO</h4>
             <span>
-              Total(3 produtos) <strong>R$ 161,00</strong>
+              {`Total(${totProd} ${totProd > 1 ? "produtos" : "produto"})`}
+              <strong>&nbsp;{somaPrice}</strong>
             </span>
           </TextInfo>
           {!isLoading ? (
@@ -202,7 +213,7 @@ export const ShoppingCartPage = () => {
                       <option value="valor3">5</option>
                     </select>
 
-                    <strong>R$ 41,00</strong>
+                    <strong>R$ {item?.preco}</strong>
                   </DFlexEnd>
                 </TextCardCart>
               </CardCart>
@@ -213,7 +224,7 @@ export const ShoppingCartPage = () => {
             </>
           )}
         </div>
-        <CardShoppingCart />
+        <CardShoppingCart totalCart={somaPrice} />
       </Container>
     </BgColor>
   );
