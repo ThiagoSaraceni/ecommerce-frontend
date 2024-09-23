@@ -119,6 +119,8 @@ export const Detail = () => {
     if (response.status === 200) {
       resetShoppingBag();
       return toast.success("Produto adicionado ao carrinho");
+    } else {
+      return toast.error("Você não está logado!!");
     }
   };
 
