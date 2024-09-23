@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RegressIcon } from "./regressIcon";
 import { StraightIcon } from "./straightIcon";
@@ -34,16 +34,31 @@ const BtnPage = styled.div`
 const ContainerBtn = styled.div`
   padding: 10px 16px;
   border-radius: 8px;
-  border: none;
+  border: ${(props) => (props.clicked ? "1px solid #ffa585" : "none")};
   background-color: #e9e9f0;
   font-family: "Saira";
   font-size: 16px;
   font-weight: 500;
-  color: #737380;
+  color: ${(props) => (props.clicked ? "#ffa585" : "#737380")};
+  cursor: pointer;
+`;
+
+const ContainerBtnStraight = styled.div`
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: ${(props) => (props.click ? "1px solid #ffa585" : "none")};
+  background-color: #e9e9f0;
+  font-family: "Saira";
+  font-size: 16px;
+  font-weight: 500;
+  color: ${(props) => (props.click ? "#ffa585" : "#737380")};
   cursor: pointer;
 `;
 
 const Pagination = ({ totalPages = 5, currentPage = 1 }) => {
+  const [clicked, setClicked] = useState(false);
+  const [click, setClick] = useState(false);
+
   const { page } = useSelector((state) => state.ecommerce);
   const dispatch = useDispatch();
 
@@ -66,12 +81,23 @@ const Pagination = ({ totalPages = 5, currentPage = 1 }) => {
           </li>
         </BtnPage>
       ))}
-      <ContainerBtn onClick={() => handlePageBack(page)}>
+      <ContainerBtn
+        clicked={clicked}
+        onClick={() => handlePageBack(page)}
+        onMouseDown={() => setClicked(true)}
+        onMouseUp={() => setClicked(false)}
+      >
         <RegressIcon />
       </ContainerBtn>
-      <ContainerBtn onClick={() => handlePageStraight(page)}>
+
+      <ContainerBtnStraight
+        click={click}
+        onClick={() => handlePageStraight(page)}
+        onMouseDown={() => setClick(true)}
+        onMouseUp={() => setClick(false)}
+      >
         <StraightIcon />
-      </ContainerBtn>
+      </ContainerBtnStraight>
     </StyledPagination>
   );
 };

@@ -189,7 +189,7 @@ export const ShoppingCartPage = () => {
             <h4>SEU CARRINHO</h4>
             <span>
               {`Total(${totProd} ${totProd > 1 ? "produtos" : "produto"})`}
-              <strong>&nbsp;{somaPrice}</strong>
+              <strong>&nbsp;{somaPrice.toFixed(2)}</strong>
             </span>
           </TextInfo>
           {!isLoading ? (
