@@ -5,12 +5,16 @@ import { changeOption } from "../../../redux/ecommerceSlice";
 
 const Li = styled.li`
   margin-right: 40px;
-  font-size: 24px;
+  font-size: 14px;
   font-family: "Saira", sans-serif;
   font-weight: ${(props) => (props?.active ? 500 : 300)};
   color: ${(props) => (props?.active ? "#41414D" : "#737380")};
   border-bottom: ${(props) => (props.active ? "4px solid #FFA585" : null)};
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const Ul = styled.ul`

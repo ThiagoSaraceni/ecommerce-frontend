@@ -75,13 +75,13 @@ const InfoCard = styled.div`
   }
 `;
 
-export const CardShoppingCart = () => {
+export const CardShoppingCart = ({ totalCart }) => {
   return (
     <Card>
       <h4>RESUMO DO PEDIDO</h4>
       <div className="dflex-space-between">
         <span>Subtotal de produtos</span>
-        <span>R$ 161,00</span>
+        <span>R$ {totalCart.toFixed(2)}</span>
       </div>
       <div className="dflex-space-between">
         <span>Entrega</span>
@@ -90,7 +90,7 @@ export const CardShoppingCart = () => {
       <div className="barra"></div>
       <div className="dflex-space-between">
         <strong>Total</strong>
-        <strong>R$ 201,00</strong>
+        <strong>R$ {(totalCart + 40).toFixed(2)}</strong>
       </div>
       <button>FINALIZAR COMPRA</button>
       <InfoCard>

@@ -7,10 +7,14 @@ import { changeOption } from "../../../redux/ecommerceSlice";
 
 const TextFilter = styled.h6`
   font-family: "Saira", sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   color: #737380;
   font-weight: 400;
   margin-right: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const Dflex = styled.div`
@@ -39,10 +43,19 @@ const Card = styled.div`
     font-family: "Saira", sans-serif;
     color: #737380;
     cursor: pointer;
+    font-size: 11px;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
   }
 
   li + li {
-    margin-top: 4px;
+    margin-top: 8px;
+
+    @media (min-width: 768px) {
+      margin-top: 4px;
+    }
   }
 
   width: 100%;

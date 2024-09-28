@@ -1,14 +1,17 @@
+import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
-import { URLAPIECOMMERCE, useFetchApi } from "../useFetchApi";
+import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
 import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
 import { useParams } from "react-router-dom";
 import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { handleRefreshCart } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
   background-color: #f0f0f5;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   padding: 20px 160px 20px 160px;
 `;
 
@@ -93,33 +96,57 @@ const Button = styled.button`
 `;
 
 export const Detail = () => {
+  const { userId, refreshCart } = useSelector((state) => state.ecommerce);
   const { id } = useParams();
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
 
+  const dispatch = useDispatch();
+
+  const resetShoppingBag = () => dispatch(handleRefreshCart(true));
+
+  const handleAddToCart = async () => {
+    const addToCart = {
+      clienteId: userId,
+      produtoId: id,
+      quantidade: 1,
+    };
+
+    const { response } = await useFetchApiPost(
+      `${URLAPIECOMMERCE}add`,
+      addToCart
+    );
+
+    if (response.status === 200) {
+      resetShoppingBag();
+      return toast.success("Produto adicionado ao carrinho");
+    } else {
+      return toast.error("Você não está logado!!");
+    }
+  };
+
   return (
-    <>
-      <BgColor>
-        <BackPage />
-        <DisplayBetween>
-          <ImgDetail src={data?.url_img} />
-          <Dbetween>
-            <InfoDetail>
-              <span>{capitalizeFirstLetter(data?.categoria)}</span>
-              <h4>{data?.nome}</h4>
-              <strong>R$ {formatNumberWithTwoDecimals(data?.preco)}</strong>
-              <p>
-                *Frete de R$40,00 para todo o Brasil. Grátis para compras acima
-                de R$900,00.
-              </p>
-              <strong className="description">DESCRIÇÃO</strong>
-              <h6>{data?.descricao}</h6>
-            </InfoDetail>
-            <Button>
-              <ShoppingBagIconWhite /> ADICIONAR AO CARRINHO
-            </Button>
-          </Dbetween>
-        </DisplayBetween>
-      </BgColor>
-    </>
+    <BgColor>
+      <Toaster />
+      <BackPage />
+      <DisplayBetween>
+        <ImgDetail src={data?.url_img} />
+        <Dbetween>
+          <InfoDetail>
+            <span>{capitalizeFirstLetter(data?.categoria)}</span>
+            <h4>{data?.nome}</h4>
+            <strong>R$ {formatNumberWithTwoDecimals(data?.preco)}</strong>
+            <p>
+              *Frete de R$40,00 para todo o Brasil. Grátis para compras acima de
+              R$900,00.
+            </p>
+            <strong className="description">DESCRIÇÃO</strong>
+            <h6>{data?.descricao}</h6>
+          </InfoDetail>
+          <Button onClick={handleAddToCart}>
+            <ShoppingBagIconWhite /> ADICIONAR AO CARRINHO
+          </Button>
+        </Dbetween>
+      </DisplayBetween>
+    </BgColor>
   );
 };
