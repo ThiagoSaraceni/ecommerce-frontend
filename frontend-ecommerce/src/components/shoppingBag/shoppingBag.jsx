@@ -1,9 +1,10 @@
-import styled from "styled-components";
-import { ShoppingBagIcon } from "./shoppingBagIcon";
-import { useNavigate } from "react-router-dom";
-import { URLAPIECOMMERCE, useFetchApi } from "../../useFetchApi";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import { ShoppingBagIcon } from "./shoppingBagIcon";
+import { URLAPIECOMMERCE, useFetchApi } from "../../useFetchApi";
 import { handleRefreshCart } from "../../redux/ecommerceSlice";
 
 const ContainerShoppingBag = styled.div`

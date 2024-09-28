@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
 import { RegressIcon } from "./regressIcon";
 import { StraightIcon } from "./straightIcon";
-import { useDispatch, useSelector } from "react-redux";
 import { handlePageChange } from "../../redux/ecommerceSlice";
 
 const StyledPagination = styled.ul`

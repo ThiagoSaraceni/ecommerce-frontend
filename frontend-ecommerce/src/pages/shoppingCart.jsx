@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
 import { BackPage } from "../components/BackPage/backPage";
 import { CardShoppingCart } from "../components/layout/CardCartShopping";
 import { TrashIcon } from "../components/Trash/trashIcon";
@@ -7,9 +10,6 @@ import {
   useFetchApi,
   useFetchApiDelete,
 } from "../useFetchApi";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { handleRefreshCart } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
@@ -155,7 +155,7 @@ export const ShoppingCartPage = () => {
   const totProd = data?.data?.length;
 
   let somaPrice = 0;
-  const qntProduto = data?.data?.map((item) => {
+  data?.data?.map((item) => {
     somaPrice += item?.preco;
   });
 

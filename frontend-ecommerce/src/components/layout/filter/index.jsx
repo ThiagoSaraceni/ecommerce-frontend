@@ -65,8 +65,6 @@ export const FilterBy = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const { params } = useSelector((state) => state.ecommerce);
-  const active = params?.option;
 
   const handleChangeOption = (param) => {
     dispatch(changeOption(param));

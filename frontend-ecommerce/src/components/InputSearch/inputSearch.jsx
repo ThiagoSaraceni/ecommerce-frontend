@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { InputSearchIcon } from "./searchIcon";
 import { useDispatch, useSelector } from "react-redux";
+import { InputSearchIcon } from "./searchIcon";
 import { handleSearch } from "../../redux/ecommerceSlice";
 
 const MainSearch = styled.input`
@@ -54,8 +54,6 @@ const DivSearchIcon = styled.div`
 `;
 
 export const InputSeach = () => {
-  const { search } = useSelector((state) => state?.ecommerce);
-
   const dispatch = useDispatch();
 
   return (

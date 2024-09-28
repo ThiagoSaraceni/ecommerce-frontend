@@ -17,14 +17,12 @@ const DSpaceBetween = styled.div`
 
 export const Home = () => {
   return (
-    <>
-      <BgColor>
-        <DSpaceBetween>
-          <Tabs />
-          <FilterBy />
-        </DSpaceBetween>
-        <Card />
-      </BgColor>
-    </>
+    <BgColor>
+      <DSpaceBetween>
+        <Tabs />
+        <FilterBy />
+      </DSpaceBetween>
+      <Card />
+    </BgColor>
   );
 };

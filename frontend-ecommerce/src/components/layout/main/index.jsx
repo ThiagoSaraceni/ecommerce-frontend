@@ -15,16 +15,12 @@ const DSpaceBetween = styled.div`
   justify-content: space-between;
 `;
 
-export const Home = () => {
-  return (
-    <>
-      <BgColor>
-        <DSpaceBetween>
-          <Tabs />
-          <FilterBy />
-        </DSpaceBetween>
-        <Card />
-      </BgColor>
-    </>
-  );
-};
+export const Home = () => (
+  <BgColor>
+    <DSpaceBetween>
+      <Tabs />
+      <FilterBy />
+    </DSpaceBetween>
+    <Card />
+  </BgColor>
+);

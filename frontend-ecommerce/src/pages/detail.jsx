@@ -1,12 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 import { BackPage } from "../components/BackPage/backPage";
 import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
 import { formatNumberWithTwoDecimals } from "../utils/currency";
 import { capitalizeFirstLetter } from "../utils/text";
-import { useParams } from "react-router-dom";
 import { ShoppingBagIconWhite } from "../components/shoppingBag/shoppingBagIcon";
-import { useDispatch, useSelector } from "react-redux";
 import { handleRefreshCart } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
@@ -96,7 +96,7 @@ const Button = styled.button`
 `;
 
 export const Detail = () => {
-  const { userId, refreshCart } = useSelector((state) => state.ecommerce);
+  const { userId } = useSelector((state) => state.ecommerce);
   const { id } = useParams();
   const { data } = useFetchApi(`${URLAPIECOMMERCE}/produtos/${id}`);
 
