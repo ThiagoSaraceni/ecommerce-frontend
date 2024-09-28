@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 20px 160px 20px 160px;
+  padding: 12px 24px;
   background-color: white;
   border-radius: 10px;
   height: 80px;
   display: flex;
   align-items: center;
+  @media (min-width: 768px) {
+    padding: 20px 160px 20px 160px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -14,7 +17,11 @@ export const Title = styled.h1`
   font-weight: 400;
   font-style: normal;
   color: #5d5d6d;
-  font-size: 40px;
+  font-size: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 40px;
+  }
 `;
 
 export const MainSearch = styled.input`

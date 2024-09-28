@@ -8,17 +8,30 @@ const MainSearch = styled.input`
   width: 100%;
   border-radius: 8px;
   background-color: #f3f5f6;
-  padding: 10px 16px 10px 40px;
   border: none;
   font-family: "Saira", sans-serif;
   font-weight: 450;
   outline: none;
+  font-size: 9px;
+  padding: 5px 20px;
+
+  @media (min-width: 768px) {
+    font-size: 13px;
+    padding: 10px 16px 10px 40px;
+  }
 `;
 
 const ContainerInputSearch = styled.div`
-  width: 352px;
+  width: 250px;
   height: 42px;
   position: relative;
+  padding-left: 14px;
+
+  @media (min-width: 768px) {
+    width: 352px;
+    height: 42px;
+    position: relative;
+  }
 `;
 
 const DivSearchIcon = styled.div`
@@ -28,8 +41,15 @@ const DivSearchIcon = styled.div`
   transform: translateY(-50%);
 
   svg {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
+  }
+
+  @media (min-width: 768px) {
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 
