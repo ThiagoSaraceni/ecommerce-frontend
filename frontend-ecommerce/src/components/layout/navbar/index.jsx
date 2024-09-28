@@ -12,7 +12,11 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const handleUser = () => {
-    userId ? dispatch(handleUserId(null)) : navigate(`/`);
+    if (userId) {
+      localStorage.removeItem("userId");
+      dispatch(handleUserId(null));
+    }
+    return navigate("/");
   };
 
   return (

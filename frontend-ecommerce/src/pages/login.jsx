@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
-import { useState } from "react";
+import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { handleUserId } from "../redux/ecommerceSlice";
@@ -91,12 +91,25 @@ const Container = styled.div`
 `;
 
 export const Login = () => {
+  const { userId } = useSelector((state) => state.ecommerce);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
 
-  const setUserId = (id) => dispatch(handleUserId(id));
+  useEffect(() => {});
+  const setUserId = (id) => {
+    localStorage.setItem("userId", id);
+    dispatch(handleUserId(id));
+  };
+
+  const savedUserId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    savedUserId
+      ? dispatch(handleUserId(savedUserId)) && navigate(`/home`)
+      : null;
+  }, []);
 
   const onSubmit = async (data) => {
     const { response, result } = await useFetchApiPost(
