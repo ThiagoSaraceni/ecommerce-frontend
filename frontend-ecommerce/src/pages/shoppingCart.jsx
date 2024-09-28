@@ -159,9 +159,6 @@ export const ShoppingCartPage = () => {
     somaPrice += item?.preco;
   });
 
-  console.log({ somaPrice, qntProduto });
-
-  console.log(data);
   useEffect(() => {
     const deleteProduct = async () => {
       if (productDelete !== "") {
