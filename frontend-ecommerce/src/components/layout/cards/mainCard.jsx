@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { formatNumberWithTwoDecimals } from "../../../utils/currency";
-import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
 import { useNavigate } from "react-router-dom";
 import Paginacao from "../../pagination/usePagination";
+import { formatNumberWithTwoDecimals } from "../../../utils/currency";
+import { URLAPIECOMMERCE, useFetchApi } from "../../../useFetchApi";
 
 const CardContainer = styled.div`
   width: 340px;

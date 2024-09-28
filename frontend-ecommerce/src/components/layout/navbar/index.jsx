@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { InputSeach } from "../../InputSearch/inputSearch";
-import { ShoppingBag } from "../../shoppingBag/shoppingBag";
-import * as S from "./styles";
-import { handleUserId } from "../../../redux/ecommerceSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import * as S from "./styles";
+
+import { ShoppingBag } from "../../shoppingBag/shoppingBag";
+import { handleUserId } from "../../../redux/ecommerceSlice";
+import { InputSeach } from "../../InputSearch/inputSearch";
 
 export const Navbar = () => {
   const { userId } = useSelector((state) => state.ecommerce);

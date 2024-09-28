@@ -1,10 +1,10 @@
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { URLAPIECOMMERCE, useFetchApi, useFetchApiPost } from "../useFetchApi";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { URLAPIECOMMERCE, useFetchApiPost } from "../useFetchApi";
 import { handleUserId } from "../redux/ecommerceSlice";
 
 const BgColor = styled.div`
@@ -91,13 +91,11 @@ const Container = styled.div`
 `;
 
 export const Login = () => {
-  const { userId } = useSelector((state) => state.ecommerce);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
 
-  useEffect(() => {});
   const setUserId = (id) => {
     localStorage.setItem("userId", id);
     dispatch(handleUserId(id));
